@@ -1,0 +1,324 @@
+body {
+  min-width:955px;
+  max-width:955px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+}
+input {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  display: inline-block;
+}
+form {
+  padding-top:25px;
+}
+img {
+  width:inherit;
+  max-width:100%;
+}
+label {
+  width:200px;
+  display:inline-block;
+}
+p {
+  border-radius: 2px 30px 30px 2px;
+  border-left-style:solid;
+  border-left-width:3px;
+  border-left-color:rgba(140,140,140,1);
+  background-color:rgba(140,140,140,0.2);
+}
+select {
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 300;
+}
+span {
+  font-weight:700;
+}
+#pageTitle {
+  float:left;
+  padding-top:5px;
+  font-size:33px;
+  width:805px;
+  border-bottom-style:solid;
+  border-bottom-color:#00394E;
+  border-bottom-width:3px;
+}
+#logoHolder {
+  float:left;
+  width:150px;
+  max-height:42px;
+  padding-bottom:2px;
+  background-repeat:no-repeat;
+  display:block;
+  border-bottom-style:solid;
+  border-bottom-color:#00394E;
+  border-bottom-width:3px;
+}
+#innerBorder {
+  fill:#ffffff;
+}
+#outerBorder {
+  fill:#d3d3d3;
+}
+#outputsHolder {
+  margin-left:15px;
+  margin-top:5px;
+  float:left;
+  width:100%;
+  height:216px;
+  border-style:solid;
+  border-color:#00394E;
+  border-width:1px;
+
+}
+#fTargetValue:hover {
+  color:#FBB157;
+  cursor:pointer;
+}
+.arrow {
+  fill:rgb(140,140,140);
+  stroke-width:1px;
+  stroke:rgb(128,128,128);
+}
+.arrowDescr {
+  font-size:10px;
+  font-style:italic;
+  font-weight:200;
+  fill:rgb(0,0,0);
+}
+.arrowTitle {
+  font-size:14px;
+  font-weight:500;
+  fill:rgb(255,255,255);
+}
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+.axis text {
+  font-family: sans-serif;
+  font-size: 11px;
+}
+.extent {
+  width:50px;
+}
+.lockHolder {
+  float:left;
+  width:22px;
+  margin-top:3px;
+  margin-left:1px;
+  max-height:22px;
+}
+.linkHolder {
+  float:left;
+  width:16px;
+  margin-top:5px;
+  margin-left:5px;
+  max-height:18px;
+}
+.upHolder {
+  float:left;
+  max-height:25px;
+  width:12px;
+  position:relative;
+  top:12px;
+  left:504px;
+}
+.downHolder {
+  float:left;
+  max-height:25px;
+  width:12px;
+  position:relative;
+  top:12px;
+  left:485px;
+}
+.minExtentLabel {
+  width:30px;
+  height:10px;
+  line-height:10px;
+  display:inline-block;
+  font-size:9px;
+  font-weight:200;
+  text-align:left;
+  position:relative;
+  left: -236px;
+  top:6px;
+}
+.maxExtentLabel {
+  width:30px;
+  height:10px;
+  line-height:10px;
+  display:inline-block;
+  font-size:9px;
+  font-weight:200;
+  text-align:right;
+  position:relative;
+  left: -68px;
+  top:6px;
+}
+.sectionHead {
+  width:100%;
+  padding-top:10px;
+  font-size:20px;
+  float:left;
+  display:inline-block;
+}
+.sectionHolder {
+  display:inline;
+  float:left;
+}
+.sectionLine {
+  line-height:25px;
+  text-align:right;
+  position:relative;
+  top:1px;
+}
+.sectionValue {
+  line-height:25px;
+  font-size:15px;
+  text-align:left;
+  padding-left:2px;
+  min-width:50px;
+  display:inline-block;
+  position:relative;
+  top:2px;
+}
+.variable {
+  position:relative;
+  top:1px;
+  width:230px;
+}
+
+.input{
+  height: 25px;
+  margin-bottom: 15px;
+  border-radius: 2px 30px 30px 2px;
+  border-left-style:solid;
+  border-left-width:3px;
+  border-left-color:rgba(140,140,140,1);
+  background-color:rgba(140,140,140,0.2);
+/*  justify-content:space-between;
+  display: flex;*/
+}
+
+.variableInput {
+  position:relative;
+  top:1px;
+  width:100px;
+}
+
+.numInput{
+  width: 50px;
+  position: "right";
+}
+
+.input1{
+  display: inline-block;
+  width: 300px;
+  text-align: right;
+}
+
+.input2{
+  display: inline-block;
+  width: 170px;
+  text-align: right;
+}
+
+.input3{
+  display: inline-block;
+  width: 170px;
+  text-align: right;
+}
+
+.input4{
+  display: inline-block;
+  width: 250px;
+  text-align: right;
+}
+
+.input5{
+  display: inline-block;
+  width: 225px;
+  text-align: right;
+}
+
+.input6{
+  display: inline-block;
+  width: 240px;
+  text-align: right;
+}
+
+.input7{
+  display: inline-block;
+  width: 240px;
+  text-align: right;
+}
+
+.input8{
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+}
+
+.input9{
+  display: inline-block;
+  width: 400px;
+  text-align: right;
+}
+
+.input10{
+  display: inline-block;
+  width: 200px;
+  text-align: right;
+}
+
+.inputMetric{
+  display: inline-block;
+  text-align: right;
+}
+
+.button {
+    display: block;
+    width: 115px;
+    height: 20px;
+    background: #00394E;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+.inputScale{
+  height: 25px;
+  margin-bottom: 15px;
+  border-radius: 2px 30px 30px 2px;
+  border-left-style:solid;
+  border-left-width:3px;
+  border-left-color:#1B4F72;
+  background-color:#EBF5FB;
+/*  justify-content:space-between;
+  display: flex;
+*/}
+
+.inputKPI{
+  height: 25px;
+  width: 700px;
+  margin-bottom: 15px;
+  border-radius: 2px 30px 30px 2px;
+  border-left-style:solid;
+  border-left-width:3px;
+  border-left-color:#16A085;
+  background-color:#E8F8F5;
+/*  justify-content:space-between;
+  display: flex;
+*/}
+
+
+
+

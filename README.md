@@ -1,2 +1,1 @@
-# mkthink-strategy-tool
-MKThink Strategy Tool
+# MKThink-strategy-tool

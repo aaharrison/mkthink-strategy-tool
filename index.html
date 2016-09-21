@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <title>MKThink Strategy Tool</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,700" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+</head>
+<div id="pageTitle">
+  Workplace Utilization and Occupancy Strategy Tool
+</div>
+<div id="logoHolder">
+  <img src="http://mkthinkstrategy.info/wggtest/admin/RH1%20Logo_2016-01.png">
+</div>
+<br>
+
+<div class="sectionHolder" style="min-width:600px;">
+  <div class="sectionHead">Variables</div>
+  <form>
+<!--top variable input><!-->
+    <p>
+      <span class="linkHolder">
+        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="topLink" value ="0" onClick="toggleTopLink();">
+      </span>
+      <label for="sTop" class="sectionLine" style="width:176px;"><span id="orgName"> weekly seat-hours </span> = </label>
+      <span id="sTop-value" class="sectionValue">…</span>
+      <input type="range" class="variable" id="sTop" step="1">
+      <span class="upHolder">
+        <img id="topUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);"></a>
+      </span>
+      <span class="downHolder">
+        <img id="topDownMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-left-blk.png" onClick="updateSliderMax(id);">
+      </span>
+      <span class="minExtentLabel" id="topMin">...</span>
+      <span class="maxExtentLabel" id="topMax">...</span>
+    </p>
+<!--bottom variable input><!-->
+    <p>
+      <span class="linkHolder">
+        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="bottomLink" value ="0" onClick="toggleBottomLink();">
+      </span>
+      <label for="sBottom" class="sectionLine" style="width:176px;"><span id="opsName">staff effectiveness </span> = </label>
+      <span id="sBottom-value" class="sectionValue">…</span>
+      <input type="range" class="variable" id="sBottom" step="0.001">
+      <span class="upHolder">
+        <img id="bottomUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);">
+      </span>
+      <span class="downHolder">
+        <img id="bottomDownMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-left-blk.png" onClick="updateSliderMax(id);">
+      </span>
+      <span class="minExtentLabel" id="bottomMin">...</span>
+      <span class="maxExtentLabel" id="bottomMax">...</span>
+    </p>
+<!--right variable input><!-->
+    <p>
+      <span class="linkHolder">
+        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="rightLink" value ="0" onClick="toggleRightLink();">
+      </span>
+      <label for="sRight" class="sectionLine" style="width:176px;"><span id="quantityName"> assignable office SF </span> = </label>
+      <span id="sRight-value" class="sectionValue">…</span>
+      <input type="range" class="variable" id="sRight" step="1">
+      <span class="upHolder">
+        <img id="rightUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);">
+      </span>
+      <span class="downHolder">
+        <img id="rightDownMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-left-blk.png" onClick="updateSliderMax(id);">
+      </span>
+      <span class="minExtentLabel" id="rightMin">...</span>
+      <span class="maxExtentLabel" id="rightMax">...</span>
+    </p>
+<!--left variable input><!-->
+    <p>
+      <span class="linkHolder">
+        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="leftLink" value ="0" onClick="toggleLeftLink();">
+      </span>
+      <label for="sLeft" class="sectionLine" style="width:176px;"><span id="qualityName"> ASF/workstation </span> = </label>
+      <span id="sLeft-value" class ="sectionValue">…</span>
+      <input id="sLeft" class="variable" type="range" step="1">
+      <span class="upHolder">
+        <img id="leftUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);">
+      </span>
+      <span class="downHolder">
+        <img id="leftDownMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-left-blk.png" onClick="updateSliderMax(id);">
+      </span>
+      <span class="minExtentLabel" id="leftMin">...</span>
+      <span class="maxExtentLabel" id="leftMax">...</span>
+    </p>
+
+  </form>
+  <div class="sectionHead">Target</div>
+    <form>
+<!--target input><!-->
+      <p>
+        <span class="lockHolder">
+          <img src="http://mkthinkstrategy.info/wggtest/admin/ic_lock_open.png" style="visibility:hidden;" id="targetLock" value ="0" onClick="toggleTargetLock();">
+        </span>
+        <label class="sectionLine" style="width:200px;"><span id="kpiName">total effective work hours/week </span> = </label>
+        <span id="fTargetValue" class="sectionValue" onClick="editTarget()" style="width:60px;">…</span>
+        <input id="fTargetInput" style="width: 60px; visibility:hidden;">
+        <button id="fTargetButton" type="button" onClick="updateTarget()" style="visibility:hidden;">update</button>
+      </p>
+    </form>
+    <a href="input.html" class="button"><span>Return to Inputs</span></a>
+  </div>
+</div>
+<div class="sectionHolder" style="width:338px;">
+  <div class="sectionHead" style="padding-left:15px;">Outputs</div>
+    <div id="outputsHolder">
+    </div>
+
+  </div>
+  <script type="text/javascript">
+
+
+  </script>
+
+</div>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+<script src="initialize.js"></script>
+

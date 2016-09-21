@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<title>MKThink Strategy Tool</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,700" rel="stylesheet">
+  	<link href="styles.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="pageTitle">
+  	Workplace Utilization and Occupancy Strategy Tool
+</div>
+<div id="logoHolder">
+  	<img src="http://mkthinkstrategy.info/wggtest/admin/RH1%20Logo_2016-01.png">
+</div>
+<br>
+<div class="sectionHead">Variable Values and Axes</div>
+<br>
+<br>
+<br>
+<form style="height:700px;" method="GET" action="index.html">
+	<div class="input">
+		<div class="input1">Organization Axis Name: <input type="text" id="orgAxis" name="orgAxis" value="ASF per workstation" ></div>
+		<div class="input2">Min Axis Value: <input type=number class="numInput" id="orgMin" name ="orgMin" value= 20 ></div>
+		<div class="input3">Max Axis Value: <input type=number class="numInput" id="orgMax" name ="orgMax" value= 250 ></div>
+		<div class="input4">Initial Organization Value:  <input type=number class="numInput" id="initialOrg" name ="intialOrg" value =140></div>
+	</div>
+
+	<div class = "input">
+		<div class="input1">Operations Axis Name: <input type="text" id="opsAxis" name="opsAxis" value="weekly seat-hours"></div>
+		<div class="input2">Min Axis Value: <input type=number class="numInput" id="opsMin" name="opsMin" value= 8></div>
+		<div class="input3">Max Axis Value: <input type=number class="numInput" id="opsMax" name="opsMax" value= 65></div>
+		<div class="input4">Initial Operations Value: <input type=number class="numInput" id="initialOps" name ="intialOps" value =28.5></div>
+	</div>
+
+	<div class = "input">
+		<div class="input1">Quantitiy Axis Name: <input type="text" id = "quantityAxis" name="quantityAxis" value="assignable office SF"></div>
+		<div class="input2">Min Axis Value: <input type=number class="numInput" id="quantityMin" name="quantityMin" value=1></div>
+		<div class="input3">Max Axis Value: <input type=number class="numInput" id="quantityMax" name="quantityMax" value=15000></div>
+		<div class="input4">Initial Quantity Value: <input type=number class="numInput" id="initialQuantity" name ="intialQuantity" value=7500></div>
+	</div>
+
+	<div class = "input">
+		<div class="input1">Quality Axis Name: <input type="text" id="qualityAxis" name="qualityAxis" value ="staff effectiveness"></div>
+		<div class="input2">Min Axis Value: <input type=number class="numInput" id="qualityMin" name="quantityMin" value=.0001></div>
+		<div class="input3">Max Axis Value: <input type=number class="numInput" id="qualityMax" name="quantityMax" value=1></div>
+		<div class="input4">Initial Quality Value: <input type=number class="numInput" id="initialQuality" name ="intialQuality" value=.500 step="0.001"></div>
+	</div>
+
+<div class="sectionHead">Scaling Values</div>
+<br>
+<br>
+<br>
+	<div class = "inputScale">
+		<div class="input5"><span>Organization Value Scale Relationships: </span></div>
+		<div class="input6">Operations Scale (1/X): <input type=number class="numInput" id="org_ops_Scale" name="org_ops_Scale" value=1></div>
+		<div class="input7">Quantity Scale (1/X): <input type=number class="numInput" id="org_quantity_Scale" name="org_quantity_Scale" value=1></div>
+		<div class="input8">Quality Scale (1/X): <input type=number class="numInput" id="org_quality_Scale" name="org_quality_Scale" value=1></div>
+	</div>
+	<div class="inputScale">
+		<div class="input5"><span>Operations Value Scale Relationships: </span></div>
+		<div class="input6">Organization Scale (1/X): <input type=number class="numInput" id="ops_org_Scale" name="ops_org_Scale" value=1></div>
+		<div class="input7">Quantity Scale (1/X): <input type=number class="numInput" id="ops_quantity_Scale" name="ops_quantity_Scale" value=1></div>
+		<div class="input8">Quality Scale (1/X): <input type=number class="numInput" id="ops_quality_Scale" name="ops_quality_Scale" value=1></div>
+	</div>
+	<div class="inputScale">
+		<div class="input5"><span>Quantity Value Scale Relationships: </span></div>
+		<div class="input6">Organization Scale (1/X): <input type=number class="numInput" id="quantity_org_Scale" name="quantity_org_Scale" value=1></div>
+		<div class="input7">Operations Scale (1/X): <input type=number class="numInput" id="quantity_ops_Scale" name="quantity_ops_Scale" value=1></div>
+		<div class="input8">Quality Scale (1/X): <input type=number class="numInput" id="quantity_quality_Scale" name="quantity_quality_Scale" value=1></div>
+	</div>
+	<div class="inputScale">
+		<div class="input5"><span>Quality Value Scale Relationships: </span></div>
+		<div class="input6">Organization Scale (1/X): <input type=number class="numInput" id="quality_org_Scale" name="quality_org_Scale" value=1></div>
+		<div class="input7">Operations Scale (1/X): <input type=number class="numInput" id="quality_ops_Scale" name="quality_ops_Scale" value=1></div>
+		<div class="input8">Quantity Scale (1/X): <input type=number class="numInput" id="quality_quantity_Scale" name="quality_quantity_Scale" value=1></div>
+	</div>
+
+<div class="sectionHead">Key Performance Indicator Information</div>
+<br>
+<br>
+<br>
+	<div class="inputKPI">
+		<div class="input5"> Key Performance Indicator Name:</div>
+		<div class="input9"> <input type="text" value="Total Effective Work Hours/Week" id="kpiName" name="kpiName" style="width:350px;"></div>
+	</div>
+
+	<div class="inputKPI">
+		<div class="input5"> Quality / Organization Metric:</div>
+		<div class="input9"> <input type="text" value="Workstations" id="metric1" name="metric1" style="width:350px;"></div>
+	</div>
+
+	<div class="inputKPI">
+		<div class="input5"> Operations * Quality Metric:</div>
+		<div class="input9"> <input type="text" value="Effective Work Hours" id="metric2" name="metric2" style="width:350px;"></div>
+	</div>
+
+	<div class="inputKPI">
+		<div class="input5"> Key Performance Indicator Target Value:</div>
+		<div class="input9"> <input type="number" value=6000 id="kpiTarget" name="kpiTarget" style="width:350px;"></div>
+	</div>
+
+<a href="index.html" onclick="saveAxisName();saveMinMax();initialBoxSize();saveScale();" class="button">Visualize</a>
+
+
+</form>
+
+</body>
+
+
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+<script src="initialize.js"></script>
