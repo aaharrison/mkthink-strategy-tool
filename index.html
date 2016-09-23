@@ -15,15 +15,16 @@
 
 <div class="sectionHolder" style="min-width:600px;">
   <div class="sectionHead">Variables</div>
+  <!-- <span style="width:650px;">Click the link icons to the left of the variable name to hardcode the respective variable items to one another.</span> -->
   <form>
 <!--top variable input><!-->
     <p>
       <span class="linkHolder">
-        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="topLink" value ="0" onClick="toggleTopLink();">
+        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="topLink" value ="0" onClick="toggleTopLink()" ondblclick= "opssoloLock();">
       </span>
-      <label for="sTop" class="sectionLine" style="width:176px;"><span id="orgName"> weekly seat-hours </span> = </label>
+      <label for="sTop" class="sectionLine" style="width:176px;"><span id="opsName"> weekly seat-hours </span> = </label>
       <span id="sTop-value" class="sectionValue">…</span>
-      <input type="range" class="variable" id="sTop" step="1">
+      <input type="range" class="variable" id="sTop" step="1" min = minTop max = maxTop  >
       <span class="upHolder">
         <img id="topUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);"></a>
       </span>
@@ -36,11 +37,11 @@
 <!--bottom variable input><!-->
     <p>
       <span class="linkHolder">
-        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="bottomLink" value ="0" onClick="toggleBottomLink();">
+        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="bottomLink" value ="0" onClick="toggleBottomLink();" ondblclick= "qualitysoloLock();">
       </span>
-      <label for="sBottom" class="sectionLine" style="width:176px;"><span id="opsName">staff effectiveness </span> = </label>
+      <label for="sBottom" class="sectionLine" style="width:176px;"><span id="qualityName">staff effectiveness </span> = </label>
       <span id="sBottom-value" class="sectionValue">…</span>
-      <input type="range" class="variable" id="sBottom" step="0.001">
+      <input type="range" class="variable" id="sBottom" step="0.001" min = minBottom max = maxBottom>
       <span class="upHolder">
         <img id="bottomUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);">
       </span>
@@ -53,11 +54,11 @@
 <!--right variable input><!-->
     <p>
       <span class="linkHolder">
-        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="rightLink" value ="0" onClick="toggleRightLink();">
+        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="rightLink" value ="0" onClick="toggleRightLink();" ondblclick= "quantitysoloLock();">
       </span>
       <label for="sRight" class="sectionLine" style="width:176px;"><span id="quantityName"> assignable office SF </span> = </label>
       <span id="sRight-value" class="sectionValue">…</span>
-      <input type="range" class="variable" id="sRight" step="1">
+      <input type="range" class="variable" id="sRight" step="1" min = minRight max = maxRight>
       <span class="upHolder">
         <img id="rightUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);">
       </span>
@@ -70,11 +71,11 @@
 <!--left variable input><!-->
     <p>
       <span class="linkHolder">
-        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="leftLink" value ="0" onClick="toggleLeftLink();">
+        <img src="http://mkthinkstrategy.info/wggtest/admin/link-gry.png" id="leftLink" value ="0" onClick="toggleLeftLink();" ondblclick= "orgsoloLock();">
       </span>
-      <label for="sLeft" class="sectionLine" style="width:176px;"><span id="qualityName"> ASF/workstation </span> = </label>
+      <label for="sLeft" class="sectionLine" style="width:176px;"><span id="orgName"> ASF/workstation </span> = </label>
       <span id="sLeft-value" class ="sectionValue">…</span>
-      <input id="sLeft" class="variable" type="range" step="1">
+      <input id="sLeft" class="variable" type="range" step="1" min = minLeft max = maxLeft>
       <span class="upHolder">
         <img id="leftUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);">
       </span>

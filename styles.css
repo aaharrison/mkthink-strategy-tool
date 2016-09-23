@@ -214,7 +214,7 @@ span {
 
 .numInput{
   width: 50px;
-  position: "right";
+  outline: none;
 }
 
 .input1{
