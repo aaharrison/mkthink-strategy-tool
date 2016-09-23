@@ -141,21 +141,21 @@ document.getElementById("kpiName").innerHTML = localStorage.getItem("kpiName");
 
 // Create scaling relationship values
 
-org_ops_Scale = parseInt(localStorage.getItem("org_ops_Scale"))
-org_quantity_Scale = parseInt(localStorage.getItem("org_quantity_Scale"))
-org_quality_Scale = parseInt(localStorage.getItem("org_quality_Scale"))
+org_ops_Ratio = parseInt(localStorage.getItem("org_ops_Scale"))
+org_quantity_Ratio = parseInt(localStorage.getItem("org_quantity_Scale"))
+org_quality_Ratio = parseInt(localStorage.getItem("org_quality_Scale"))
 
-ops_org_Scale = parseInt(localStorage.getItem("ops_org_Scale"))
-ops_quantity_Scale = parseInt(localStorage.getItem("ops_quantity_Scale"))
-ops_quality_Scale = parseInt(localStorage.getItem("ops_quality_Scale"))
+ops_org_Ratio = parseInt(localStorage.getItem("ops_org_Scale"))
+ops_quantity_Ratio = parseInt(localStorage.getItem("ops_quantity_Scale"))
+ops_quality_Ratio = parseInt(localStorage.getItem("ops_quality_Scale"))
 
-quantity_org_Scale = parseInt(localStorage.getItem("quantity_org_Scale"))
-quantity_ops_Scale = parseInt(localStorage.getItem("quantity_ops_Scale"))
-quantity_quality_Scale = parseInt(localStorage.getItem("quantity_quality_Scale"))
+quantity_org_Ratio = parseInt(localStorage.getItem("quantity_org_Scale"))
+quantity_ops_Ratio = parseInt(localStorage.getItem("quantity_ops_Scale"))
+quantity_quality_Ratio = parseInt(localStorage.getItem("quantity_quality_Scale"))
 
-quality_org_Scale = parseInt(localStorage.getItem("quality_org_Scale"))
-quality_ops_Scale = parseInt(localStorage.getItem("quality_ops_Scale"))
-quality_quantity_Scale = parseInt(localStorage.getItem("quality_quantity_Scale"))
+quality_org_Ratio = parseInt(localStorage.getItem("quality_org_Scale"))
+quality_ops_Ratio = parseInt(localStorage.getItem("quality_ops_Scale"))
+quality_quantity_Ratio = parseInt(localStorage.getItem("quality_quantity_Scale"))
 
 
 
@@ -957,9 +957,9 @@ function lock3(){
 
   //calculate newValues
 
-vBottom = nBottom+nBottom*(ops_quality_Scale*((vTop-nTop)/nTop))
-vLeft =nLeft - (nLeft - nLeft*(ops_org_Scale*((vTop-nTop)/nTop)))*(org_ops_Ratio*((vTop-nTop)/nTop))
-vRight = nRight + nRight*(ops_quantity_Scale*((vTop-nTop)/nTop))
+vBottom = nBottom+nBottom*(ops_quality_Ratio*((vTop-nTop)/nTop))
+vLeft =nLeft - (nLeft - nLeft*(ops_org_Ratio*((vTop-nTop)/nTop)))*(org_ops_Ratio*((vTop-nTop)/nTop))
+vRight = nRight + nRight*(ops_quantity_Ratio*((vTop-nTop)/nTop))
 
 
 if (linkedCounter > 1 && targetLockToggle == "0" & topLinkToggle !="0") {
