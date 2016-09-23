@@ -41,7 +41,7 @@ function saveAxisName(){
 
     var kpiTarget = document.getElementById("kpiTarget");
     localStorage.setItem("kpiTarget", kpiTarget.value);
-  }
+  };
 
 // Define the Minimum and Maximum Axis Values
 
@@ -69,7 +69,7 @@ function saveMinMax(){
 
   var qualityMaxValue = document.getElementById("qualityMax");
   localStorage.setItem("qualityMaxValue", qualityMaxValue.value);
-}
+};
 
 // Set the initial box size
 
@@ -85,7 +85,7 @@ function initialBoxSize(){
 
   var initialQualityValue = document.getElementById("initialQuality");
   sessionStorage.setItem("initialQualityValue", initialQualityValue.value);
-    }
+    };
 
 // Assign the scaling relationships
 
@@ -125,7 +125,7 @@ function saveScale(){
 
   var quality_quantity_Scale = document.getElementById("quality_quantity_Scale");
   localStorage.setItem("quality_quantity_Scale", quality_quantity_Scale.value);
-  }
+  };
 
 // Update variable names on the visualization page
 
@@ -141,26 +141,27 @@ document.getElementById("kpiName").innerHTML = localStorage.getItem("kpiName");
 
 // Create scaling relationship values
 
-org_ops_Value = 1/parseInt(localStorage.getItem("org_ops_Scale"))
-org_quantity_Value = 1/parseInt(localStorage.getItem("org_quantity_Scale"))
-org_quality_Value = 1/parseInt(localStorage.getItem("org_quality_Scale"))
+org_ops_Ratio = parseInt(localStorage.getItem("org_ops_Scale"))
+org_quantity_Ratio = parseInt(localStorage.getItem("org_quantity_Scale"))
+org_quality_Ratio = parseInt(localStorage.getItem("org_quality_Scale"))
 
-ops_org_Value = 1/parseInt(localStorage.getItem("ops_org_Scale"))
-ops_quantity_Value = 1/parseInt(localStorage.getItem("ops_quantity_Scale"))
-ops_quality_Value = 1/parseInt(localStorage.getItem("ops_quality_Scale"))
+ops_org_Ratio = parseInt(localStorage.getItem("ops_org_Scale"))
+ops_quantity_Ratio = parseInt(localStorage.getItem("ops_quantity_Scale"))
+ops_quality_Ratio = parseInt(localStorage.getItem("ops_quality_Scale"))
 
-quantity_org_Value = 1/parseInt(localStorage.getItem("quantity_org_Scale"))
-quantity_ops_Value = 1/parseInt(localStorage.getItem("quantity_ops_Scale"))
-quantity_quality_Value = 1/parseInt(localStorage.getItem("quantity_quality_Scale"))
+quantity_org_Ratio = parseInt(localStorage.getItem("quantity_org_Scale"))
+quantity_ops_Ratio = parseInt(localStorage.getItem("quantity_ops_Scale"))
+quantity_quality_Ratio = parseInt(localStorage.getItem("quantity_quality_Scale"))
 
-quality_org_Value = 1/parseInt(localStorage.getItem("quality_org_Scale"))
-quality_ops_Value = 1/parseInt(localStorage.getItem("quality_ops_Scale"))
-quality_quantity_Value = 1/parseInt(localStorage.getItem("quality_quantity_Scale"))
+quality_org_Ratio = parseInt(localStorage.getItem("quality_org_Scale"))
+quality_ops_Ratio = parseInt(localStorage.getItem("quality_ops_Scale"))
+quality_quantity_Ratio = parseInt(localStorage.getItem("quality_quantity_Scale"))
+
+
 
 // default values for controls, rectangle dimensions and calculated metrics
 
 var rule = 0;
-console.log(rule);
 
 maxTop = parseInt(localStorage.getItem("opsMaxValue"));
 maxBottom = parseFloat(localStorage.getItem("qualityMaxValue"));
@@ -360,24 +361,28 @@ function initializeAxes () {
     .attr("class", "axis")
     .attr("id", "x1")
     .attr("transform", "translate(" + (posX + oRingMargin/2) + "," + (posY + oRingMargin/2) + ")")
+    .attr("stroke-width",1.5)
     .call(xAxis);
 
   holder.append("g")
     .attr("class", "axis")
     .attr("id", "y1")
     .attr("transform", "translate(" + (posX + oRingMargin/2) + "," + (posY + oRingMargin/2) + ")")
+    .attr("stroke-width",1.5)
     .call(yAxis);
 
   holder.append("g")
     .attr("class", "axis")
     .attr("id", "x2")
     .attr("transform", "translate(" + (posX + oRingMargin/2) + "," + (posY + oRingMargin/2) + ")")
+    .attr("stroke-width",1.5)
     .call(xAxis2);
 
   holder.append("g")
     .attr("class", "axis")
     .attr("id", "y2")
     .attr("transform", "translate(" + (posX + oRingMargin/2) + "," + (posY + oRingMargin/2) + ")")
+    .attr("stroke-width",1.5)
     .call(yAxis2);
 
 
@@ -656,6 +661,68 @@ function updateTarget() {
   updateRect(0);
 };
 
+
+function opssoloLock(){
+  if (topLinkToggle == "0" && linkedCounter*1 == 0) {
+    topLinkToggle = "1";
+    linkedCounter = linkedCounter + 1
+    document.getElementById("sTop").disabled = true;
+    document.getElementById("topLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-ltblue.png";
+  }
+  else {
+    topLinkToggle = "0";
+    linkedCounter = linkedCounter - 1
+    document.getElementById("sTop").disabled = false
+    document.getElementById("topLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-gry.png"
+  }
+  };
+
+function qualitysoloLock(){
+  if (bottomLinkToggle == "0" && linkedCounter*1 == 0) {
+    topLinkToggle = "1";
+    linkedCounter = linkedCounter + 1
+    document.getElementById("sBottom").disabled = true
+    document.getElementById("bottomLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-ltblue.png"
+  }
+  else {
+    topLinkToggle = "0";
+    linkedCounter = linkedCounter - 1
+    document.getElementById("sBottom").disabled = false
+    document.getElementById("bottomLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-gry.png"
+  }
+  };
+
+function quantitysoloLock(){
+  if (rightLinkToggle == "0" && linkedCounter*1 == 0) {
+    rightLinkToggle = "1";
+    linkedCounter = linkedCounter + 1
+    document.getElementById("sRight").disabled = true
+    document.getElementById("rightLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-ltblue.png"
+  }
+  else {
+    rightLinkToggle = "0";
+    linkedCounter = linkedCounter - 1
+    document.getElementById("sRight").disabled = false
+    document.getElementById("rightLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-gry.png"
+  }
+  };
+
+function orgsoloLock(){
+  if (leftLinkToggle == "0" && linkedCounter*1 == 0) {
+    leftLinkToggle = "1";
+    linkedCounter = linkedCounter + 1
+    document.getElementById("sLeft").disabled = true
+    document.getElementById("leftLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-ltblue.png"
+  }
+  else {
+    rightLinkToggle = "0";
+    linkedCounter = linkedCounter - 1
+    document.getElementById("sLeft").disabled = false
+    document.getElementById("leftLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-gry.png"
+  }
+  };
+
+
 // toggle target Lock icon (activated from html)
 function toggleTargetLock() {
   if (targetLockToggle == "0") {
@@ -665,6 +732,14 @@ function toggleTargetLock() {
   else if (targetLockToggle != "0") {
     targetLockToggle = "0";
     document.getElementById("targetLock").src = "http://mkthinkstrategy.info/wggtest/admin/ic_lock_open.png";
+    if (topLinkToggle == 1) {toggleTopLink()};
+    if (bottomLinkToggle == 1) {toggleBottomLink()};
+    if (rightLinkToggle == 1) {toggleRightLink()};
+    if (leftLinkToggle == 1) {toggleLeftLink()};
+    document.getElementById("sRight").disabled = false;
+    document.getElementById("sLeft").disabled = false;
+    document.getElementById("sTop").disabled = false;
+    document.getElementById("sBottom").disabled = false;
   }
 }
 
@@ -699,6 +774,7 @@ function toggleTopLink() {
   else if (topLinkToggle != "0" && linkedCounter*1 != 2) {
     topLinkToggle = "0";
     linkedCounter = linkedCounter - 1;
+    document.getElementById("sTop").disabled = false;
     document.getElementById("topLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-gry.png";
   }
 
@@ -715,12 +791,13 @@ function toggleTopLink() {
 function toggleBottomLink() {
   if (bottomLinkToggle == "0" && linkedCounter*1 == 0) {
     bottomLinkToggle = "1";
-    linkedCounter = linkedCounter + 1;    
+    linkedCounter = linkedCounter + 1;
     document.getElementById("bottomLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-ltblue.png";
   }
   else if (bottomLinkToggle == "0" && linkedCounter*1 == 1) {
     bottomLinkToggle = "1";
     linkedCounter = linkedCounter + 1;
+    document.getElementById("sBottom").disabled = false;
     document.getElementById("bottomLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-dkblue.png";
     if (topLinkToggle == "1") {document.getElementById("topLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-dkblue.png"}
       else if (leftLinkToggle == "1") {document.getElementById("leftLink").src = "http://mkthinkstrategy.info/wggtest/admin/link-dkblue.png"}
@@ -848,6 +925,24 @@ function updateTop(vTop) {
   holder.selectAll('.edge').attr("style", "stroke:rgb(128,128,128); stroke-width:1px");
   holder.select('#topEdge').attr("style", "stroke:rgb(128,128,128); stroke-width:3px");
 
+function lock1(){
+  document.getElementById("sRight").disabled = true;
+  document.getElementById("sLeft").disabled = true;
+  vBottom = areaMetric/(vTop*(1/nLeft)*nRight);
+  };
+
+function lock2(){
+  document.getElementById("sRight").disabled = true;
+  document.getElementById("sBottom").disabled = true;
+  vLeft = 1/(areaMetric/(vTop*nBottom*nRight));
+};
+
+function lock3(){
+  document.getElementById("sLeft").disabled = true;
+  document.getElementById("sBottom").disabled = true;
+  vRight = areaMetric/(vTop*nBottom*(1/nLeft));
+}
+
 // highlight any linked edges
   if (topLinkToggle != "0") {
     if (bottomLinkToggle == "1") {holder.select('#bottomEdge').attr("style", "stroke:rgb(128,128,128); stroke-width:3px")}
@@ -859,19 +954,26 @@ function updateTop(vTop) {
 
   updateMetrics();
 
-//calculate newValues
+
+  //calculate newValues
+
+vBottom = nBottom+nBottom*(ops_quality_Ratio*((vTop-nTop)/nTop))
+vLeft =nLeft - (nLeft - nLeft*(ops_org_Ratio*((vTop-nTop)/nTop)))*(org_ops_Ratio*((vTop-nTop)/nTop))
+vRight = nRight + nRight*(ops_quantity_Ratio*((vTop-nTop)/nTop))
+
+
 if (linkedCounter > 1 && targetLockToggle == "0" & topLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is UNLOCKED)
-  if (bottomLinkToggle == "0") {vBottom = nBottom} else {vBottom = nBottom + (nBottom)*(vTop-nTop)/(nTop)};
-  if (leftLinkToggle == "0") {vLeft = nLeft} else {vLeft =nLeft - (nLeft - nLeft*((vTop-nTop)/nTop))*((vTop-nTop)/nTop)};
-  if (rightLinkToggle == "0") {vRight = nRight} else {vRight = nRight + nRight*((vTop-nTop)/nTop)};
+  if (bottomLinkToggle == "0"){vBottom = nBottom} else {if (vBottom<=maxBottom){vBottom} else {vBottom=maxBottom;vTop=nTop}  };
+  if (leftLinkToggle == "0") {vLeft = nLeft} else {if (vLeft<=maxLeft){vLeft} else {vLeft=maxLeft;vTop=nTop} };
+  if (rightLinkToggle == "0") {vRight = nRight} else {if (vRight<=maxRight){vRight} else {vRight=maxRight;vTop=nTop} };
 } else if (linkedCounter > 1 && targetLockToggle == "1" & topLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is LOCKED)
   if (linkedCounter =="2") {
     //with 2 axes linked:
-    if (bottomLinkToggle == "0") {vBottom = nBottom} else {vBottom = areaMetric/(vTop*(1/nLeft)*nRight)};
-    if (leftLinkToggle == "0") {vLeft = nLeft} else {vLeft = 1/(areaMetric/(vTop*nBottom*nRight))};
-    if (rightLinkToggle == "0") {vRight = nRight} else {vRight = areaMetric/(vTop*nBottom*(1/nLeft))};
+    if (bottomLinkToggle == "0") {vBottom = nBottom} else {lock1()};
+    if (leftLinkToggle == "0") {vLeft = nLeft} else {lock2()};
+    if (rightLinkToggle == "0") {vRight = nRight} else {lock3()};
   } else if (linkedCounter =="3") {
     //with 3 axes linked:
     if (bottomLinkToggle != "0" && leftLinkToggle != "0") {alert('not completed')}
@@ -887,7 +989,6 @@ if (linkedCounter > 1 && targetLockToggle == "0" & topLinkToggle !="0") {
   vRight = nRight;
 }
 
-
 //check to see whether new values exceed maximum/minimum limits, and revert them all if one does.
 if (vTop <= maxTop && vTop >= minTop && vBottom <= maxBottom && vBottom >= minBottom && vLeft <= maxLeft && vLeft >= minLeft  && vRight <= maxRight && vRight >= minRight) {
   nTop = vTop;
@@ -898,9 +999,31 @@ if (vTop <= maxTop && vTop >= minTop && vBottom <= maxBottom && vBottom >= minBo
   
   updateSliders();
   updateRect(0);
+
+  // console.log(vBottom)
+  // console.log(vTop)
+
 }
 
 function updateBottom(vBottom) {
+
+function lock1(){
+  document.getElementById("sRight").disabled = true;
+  document.getElementById("sLeft").disabled = true;
+  vTop = areaMetric/(vBottom*(1/nLeft)*nRight)
+}
+
+function lock2(){
+  document.getElementById("sRight").disabled = true;
+  document.getElementById("sTop").disabled = true;
+  vLeft = 1/(areaMetric/(nTop*vBottom*nRight))
+}
+
+function lock3(){
+  document.getElementById("sLeft").disabled = true;
+  document.getElementById("sTop").disabled = true;
+  vRight = areaMetric/(nTop*vBottom*(1/nLeft))
+}
 
 // highlight the top edge
   holder.selectAll('.edge').attr("style", "stroke:rgb(128,128,128); stroke-width:1px");
@@ -927,9 +1050,9 @@ if (linkedCounter > 0 && targetLockToggle == "0" && bottomLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is LOCKED)
   if (linkedCounter =="2") {
     //with 2 axes linked:
-    if (topLinkToggle == "0") {vTop = nTop} else {vTop = areaMetric/(vBottom*(1/nLeft)*nRight)};
-    if (leftLinkToggle == "0") {vLeft = nLeft} else {vLeft = 1/(areaMetric/(nTop*vBottom*nRight))};
-    if (rightLinkToggle == "0") {vRight = nRight} else {vRight = areaMetric/(nTop*vBottom*(1/nLeft))};
+    if (topLinkToggle == "0") {vTop = nTop} else {lock1()};
+    if (leftLinkToggle == "0") {vLeft = nLeft} else {lock2()};
+    if (rightLinkToggle == "0") {vRight = nRight} else {lock3()};
   } else if (linkedCounter =="3") {
     //with 3 axes linked:
     if (topLinkToggle != "0" && leftLinkToggle != "0") {alert('not completed')}
@@ -959,6 +1082,25 @@ if (vTop <= maxTop && vTop >= minTop && vBottom <= maxBottom && vBottom >= minBo
 
 function updateLeft(vLeft) {
 
+function lock1(){
+  document.getElementById("sRight").disabled = true;
+  document.getElementById("sBottom").disabled = true;
+  vTop = nTop + nTop*((vLeft-nLeft)/nLeft)
+}
+
+function lock2(){
+  document.getElementById("sRight").disabled = true;
+  document.getElementById("sTop").disabled = true;
+  vBottom = nBottom + nBottom*((vLeft-nLeft)/nLeft)
+}
+
+function lock3(){
+  document.getElementById("sBottom").disabled = true;
+  document.getElementById("sTop").disabled = true;
+  vRight = nRight + nRight*((vLeft-nLeft)/nLeft)
+}
+
+
 // highlight the top edge
   holder.selectAll('.edge').attr("style", "stroke:rgb(128,128,128); stroke-width:1px");
   holder.select('#leftEdge').attr("style", "stroke:rgb(128,128,128); stroke-width:3px");
@@ -977,9 +1119,9 @@ function updateLeft(vLeft) {
 //calculate newValues
 if (linkedCounter > 1 && targetLockToggle == "1" && leftLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is LOCKED)
-  if (topLinkToggle == "0") {vTop = nTop} else {vTop = nTop + nTop*((vLeft-nLeft)/nLeft)};
-  if (bottomLinkToggle == "0") {vBottom = nBottom} else {vBottom = nBottom + nBottom*((vLeft-nLeft)/nLeft)};
-  if (rightLinkToggle == "0") {vRight = nRight} else {vRight = nRight + nRight*((vLeft-nLeft)/nLeft)};
+  if (topLinkToggle == "0") {vTop = nTop} else {lock1()};
+  if (bottomLinkToggle == "0") {vBottom = nBottom} else {lock2()};
+  if (rightLinkToggle == "0") {vRight = nRight} else {lock3()};
 } else if (linkedCounter > 1 && targetLockToggle == "0" && leftLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is UNLOCKED)
   if (linkedCounter =="2") {
@@ -1012,9 +1154,27 @@ if (vTop <= maxTop && vTop >= minTop && vBottom <= maxBottom && vBottom >= minBo
   
   updateSliders();
   updateRect(0);
-}
+};
 
 function updateRight(vRight) {
+
+function lock1(){
+  document.getElementById("sLeft").disabled = true;
+  document.getElementById("sBottom").disabled = true;
+  vTop = areaMetric/(nBottom*(1/nLeft)*vRight)
+}
+
+function lock2(){
+  document.getElementById("sTop").disabled = true;
+  document.getElementById("sBottom").disabled = true;
+  vLeft = areaMetric/(nTop*nBottom*vRight)
+}
+
+function lock3(){
+  document.getElementById("sTop").disabled = true;
+  document.getElementById("sLeft").disabled = true;
+  vBottom = areaMetric/(nTop*(1/nLeft)*vRight)
+}
 
 // highlight the top edge
   holder.selectAll('.edge').attr("style", "stroke:rgb(128,128,128); stroke-width:1px");
@@ -1041,9 +1201,9 @@ if (linkedCounter > 1 && targetLockToggle == "0" && rightLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is LOCKED)
   if (linkedCounter =="2") {
     //with 2 axes linked:
-    if (topLinkToggle == "0") {vTop = nTop} else {vTop = areaMetric/(nBottom*(1/nLeft)*vRight)};
-    if (leftLinkToggle == "0") {vLeft = nLeft} else {vLeft = areaMetric/(nTop*nBottom*vRight)};
-    if (bottomLinkToggle == "0") {vBottom = nBottom} else {vBottom = areaMetric/(nTop*(1/nLeft)*vRight)};
+    if (topLinkToggle == "0") {vTop = nTop} else {lock1()};
+    if (leftLinkToggle == "0") {vLeft = nLeft} else {lock2()};
+    if (bottomLinkToggle == "0") {vBottom = nBottom} else {lock3()};
   } else if (linkedCounter =="3") {
     //with 3 axes linked:
     if (topLinkToggle != "0" && bottomLinkToggle != "0") {alert('not completed')}
@@ -1378,5 +1538,6 @@ function updateMetrics() {
   xMetric = nRight/nLeft;
   areaMetric = xMetric*yMetric;
 }
+
 
 

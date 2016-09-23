@@ -21,16 +21,16 @@
 <form style="height:700px;" method="GET" action="index.html">
 	<div class="input">
 		<div class="input1">Organization Axis Name: <input type="text" id="orgAxis" name="orgAxis" value="ASF per workstation" ></div>
-		<div class="input2">Min Axis Value: <input type=number class="numInput" id="orgMin" name ="orgMin" value= 20 ></div>
+		<div class="input2">Min Axis Value: <input type=number class="numInput" id="orgMin" name ="orgMin" value= 1 ></div>
 		<div class="input3">Max Axis Value: <input type=number class="numInput" id="orgMax" name ="orgMax" value= 250 ></div>
-		<div class="input4">Initial Organization Value:  <input type=number class="numInput" id="initialOrg" name ="intialOrg" value =140></div>
+		<div class="input4">Initial Organization Value:  <input type=number class="numInput" id="initialOrg" name ="intialOrg" value =125></div>
 	</div>
 
 	<div class = "input">
 		<div class="input1">Operations Axis Name: <input type="text" id="opsAxis" name="opsAxis" value="weekly seat-hours"></div>
-		<div class="input2">Min Axis Value: <input type=number class="numInput" id="opsMin" name="opsMin" value= 8></div>
+		<div class="input2">Min Axis Value: <input type=number class="numInput" id="opsMin" name="opsMin" value= 1></div>
 		<div class="input3">Max Axis Value: <input type=number class="numInput" id="opsMax" name="opsMax" value= 65></div>
-		<div class="input4">Initial Operations Value: <input type=number class="numInput" id="initialOps" name ="intialOps" value =28.5></div>
+		<div class="input4">Initial Operations Value: <input type=number class="numInput" id="initialOps" name ="intialOps" value =33></div>
 	</div>
 
 	<div class = "input">
@@ -47,33 +47,35 @@
 		<div class="input4">Initial Quality Value: <input type=number class="numInput" id="initialQuality" name ="intialQuality" value=.500 step="0.001"></div>
 	</div>
 
-<div class="sectionHead">Scaling Values</div>
+<div class="sectionHead">Variable Relationships</div>
+ The values inputed will affect the scaling relationship of the variable just left of input box (1/X Relationship). 
+
 <br>
 <br>
 <br>
 	<div class = "inputScale">
 		<div class="input5"><span>Organization Value Scale Relationships: </span></div>
-		<div class="input6">Operations Scale (1/X): <input type=number class="numInput" id="org_ops_Scale" name="org_ops_Scale" value=1></div>
-		<div class="input7">Quantity Scale (1/X): <input type=number class="numInput" id="org_quantity_Scale" name="org_quantity_Scale" value=1></div>
-		<div class="input8">Quality Scale (1/X): <input type=number class="numInput" id="org_quality_Scale" name="org_quality_Scale" value=1></div>
+		<div class="input6">Operations Unit(s): <input type=number class="numInput" id="org_ops_Scale" name="org_ops_Scale" value=1></div>
+		<div class="input7">Quantity Unit(s): <input type=number class="numInput" id="org_quantity_Scale" name="org_quantity_Scale" value=1></div>
+		<div class="input8">Quality Unit(s): <input type=number class="numInput" id="org_quality_Scale" name="org_quality_Scale" value=1></div>
 	</div>
 	<div class="inputScale">
 		<div class="input5"><span>Operations Value Scale Relationships: </span></div>
-		<div class="input6">Organization Scale (1/X): <input type=number class="numInput" id="ops_org_Scale" name="ops_org_Scale" value=1></div>
-		<div class="input7">Quantity Scale (1/X): <input type=number class="numInput" id="ops_quantity_Scale" name="ops_quantity_Scale" value=1></div>
-		<div class="input8">Quality Scale (1/X): <input type=number class="numInput" id="ops_quality_Scale" name="ops_quality_Scale" value=1></div>
+		<div class="input6">Organization Unit(s): <input type=number class="numInput" id="ops_org_Scale" name="ops_org_Scale" value=1></div>
+		<div class="input7">Quantity Unit(s): <input type=number class="numInput" id="ops_quantity_Scale" name="ops_quantity_Scale" value=1></div>
+		<div class="input8">Quality Unit(s): <input type=number class="numInput" id="ops_quality_Scale" name="ops_quality_Scale" value=1></div>
 	</div>
 	<div class="inputScale">
 		<div class="input5"><span>Quantity Value Scale Relationships: </span></div>
-		<div class="input6">Organization Scale (1/X): <input type=number class="numInput" id="quantity_org_Scale" name="quantity_org_Scale" value=1></div>
-		<div class="input7">Operations Scale (1/X): <input type=number class="numInput" id="quantity_ops_Scale" name="quantity_ops_Scale" value=1></div>
-		<div class="input8">Quality Scale (1/X): <input type=number class="numInput" id="quantity_quality_Scale" name="quantity_quality_Scale" value=1></div>
+		<div class="input6">Organization Unit(s): <input type=number class="numInput" id="quantity_org_Scale" name="quantity_org_Scale" value=1></div>
+		<div class="input7">Operations Unit(s): <input type=number class="numInput" id="quantity_ops_Scale" name="quantity_ops_Scale" value=1></div>
+		<div class="input8">Quality Unit(s): <input type=number class="numInput" id="quantity_quality_Scale" name="quantity_quality_Scale" value=1></div>
 	</div>
 	<div class="inputScale">
 		<div class="input5"><span>Quality Value Scale Relationships: </span></div>
-		<div class="input6">Organization Scale (1/X): <input type=number class="numInput" id="quality_org_Scale" name="quality_org_Scale" value=1></div>
-		<div class="input7">Operations Scale (1/X): <input type=number class="numInput" id="quality_ops_Scale" name="quality_ops_Scale" value=1></div>
-		<div class="input8">Quantity Scale (1/X): <input type=number class="numInput" id="quality_quantity_Scale" name="quality_quantity_Scale" value=1></div>
+		<div class="input6">Organization Unit(s): <input type=number class="numInput" id="quality_org_Scale" name="quality_org_Scale" value=1></div>
+		<div class="input7">Operations Unit(s): <input type=number class="numInput" id="quality_ops_Scale" name="quality_ops_Scale" value=1></div>
+		<div class="input8">Quantity Unit(s): <input type=number class="numInput" id="quality_quantity_Scale" name="quality_quantity_Scale" value=1></div>
 	</div>
 
 <div class="sectionHead">Key Performance Indicator Information</div>
