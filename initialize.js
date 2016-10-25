@@ -167,6 +167,7 @@ nBottom = parseFloat(localStorage.getItem("initialQualityValue"));
 nRight = parseInt(localStorage.getItem("initialQuantityValue"));
 nLeft = parseInt(localStorage.getItem("initialOrgValue"));
 
+
 // set default Target KPI value based on value entered on input page
 
 var target = parseInt(localStorage.getItem("kpiTarget"));
@@ -202,6 +203,12 @@ var soloOrg = 0
 var soloQuantity = 0
 var soloQuality = 0
 
+// Initial percentage change value
+
+var opsChange = 0
+var qualityChange = 0
+var orgChange = 0
+var quantityChange = 0
 
 //**INITIALIZERS**
 
@@ -210,6 +217,7 @@ initializeCanvas();
 initializeAxes();
 initializeRect();
 initializeSliders();
+initializeChange();
 initializeMin();
 
 
@@ -648,9 +656,21 @@ function initializeSliders() {
   leftMax.innerHTML = maxLeft;
 }
 
+function initializeChange(){
+//Operations
+  d3.select("#opsChange").text(d3.format("0.0%")(opsChange));
+
+//Quality
+  d3.select("#qualityChange").text(d3.format("0.0%")(qualityChange));
+
+//Organization
+  d3.select("#orgChange").text(d3.format("0.0%")(orgChange));
+
+//Quantity
+  d3.select("#quantityChange").text(d3.format("0.0%")(qualityChange))
+}
 
 //**LISTENERS**
-
 
 // read a change in the top input
 d3.select("#sTop").on("input", function() {
@@ -1007,7 +1027,9 @@ function lock1(){
   document.getElementById("sRight").disabled = true;
   document.getElementById("sLeft").disabled = true;
   vBottom = areaMetric/(vTop*(1/nLeft)*nRight);
-  
+
+  if (((vBottom-oBottom)/oBottom)<= -1){qualityChange = -1; opsChange = ((nTop-oTop)/oTop)} else { if (((vBottom-oBottom)/oBottom)>=1) {qualityChange = 1; opsChange = ((nTop-oTop)/oTop)} else {qualityChange = ((vBottom-oBottom)/oBottom)}};
+ 
 };
 
 function lock2(){
@@ -1016,6 +1038,8 @@ function lock2(){
   document.getElementById("sBottom").disabled = true;
   vLeft = 1/(areaMetric/(vTop*nBottom*nRight));
 
+  if (((oLeft-vLeft)/oLeft)<= -1){orgChange = -1; opsChange = ((nTop-oTop)/oTop);} else { if (((oLeft-vLeft)/oLeft)>= 1) {orgChange = 1; opsChange = ((nTop-oTop)/oTop);} else {orgChange = ((oLeft-vLeft)/oLeft)}};
+
 };
 
 function lock3(){
@@ -1023,6 +1047,8 @@ function lock3(){
   document.getElementById("sLeft").disabled = true;
   document.getElementById("sBottom").disabled = true;
   vRight = areaMetric/(vTop*nBottom*(1/nLeft));
+
+  if (((vRight-oRight)/oRight)<= -1){quantityChange = -1; opsChange = ((nTop-oTop)/oTop);} else { if (((vRight-oRight)/oRight)>= 1) {quantityChange = 1; opsChange = ((nTop-oTop)/oTop);} else {quantityChange = ((vRight-oRight)/oRight)}};
 
 };
 
@@ -1034,6 +1060,16 @@ function lock4(){
   vLeft = 1/(areaMetric/(vTop*nBottom*nRight));
   vRight = nRight;
   document.getElementById("sRight").disabled = true;
+  qualityChange = ((vBottom-oBottom)/oBottom);
+  orgChange = ((oLeft-vLeft)/oLeft);
+
+  if ( qualityChange >= 1 || qualityChange <= -1 || orgChange >= 1 || orgChange <= -1){
+    opsChange = ((nTop-oTop)/oTop);
+    qualityChange = ((nBottom-oBottom)/oBottom);
+    orgChange = ((nLeft-vLeft)/oLeft);
+  }
+
+
 
 };
 
@@ -1043,6 +1079,14 @@ function lock5(){
   vRight = areaMetric/(vTop*nBottom*(1/nLeft));
   vLeft = nLeft;
   document.getElementById("sLeft").disabled = true;
+  qualityChange = ((vBottom-oBottom)/oBottom);
+  quantityChange = ((vRight-oRight)/oRight);
+
+  if ( qualityChange >= 1 || qualityChange <= -1 || quantityChange >= 1 || quantityChange <= -1){
+    opsChange = ((nTop-oTop)/oTop);
+    qualityChange = ((nBottom-oBottom)/oBottom);
+    quantityChange = ((nRight-oRight)/oRight);
+  }
 
 };
 
@@ -1052,8 +1096,22 @@ function lock6(){
   vLeft = 1/(areaMetric/(vTop*nBottom*nRight));
   vBottom = nBottom;
   document.getElementById("sBottom").disabled = true;
+  quantityChange = ((nRight-oRight)/oRight);
+  orgChange = ((oLeft-nLeft)/oLeft);
+
+  if ( quantityChange >= 1 || quantityChange <= -1 || orgChange >= 1 || orgChange <= -1 ){
+    opsChange = ((nTop-oTop)/oTop);
+    quantityChange = ((nRight-oRight)/oRight);
+    orgChange = ((oLeft-nLeft)/oLeft);
+  }
 
 };
+
+// Operations percentage change from original amount
+
+if (((vTop-oTop)/oTop)<-1){opsChange = -1} else { if (((vTop-oTop)/oTop)>1) {opsChange = 1} else {opsChange = ((vTop-oTop)/oTop)}};
+
+
 
 // highlight any linked edges
   if (topLinkToggle != "0") {
@@ -1079,9 +1137,14 @@ vRight = nRight + nRight*(ops_quantity_Ratio*((vTop-nTop)/nTop))
 if (linkedCounter > 1 && targetLockToggle == "0" & topLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is UNLOCKED)
   if (bottomLinkToggle == "0"){vBottom = nBottom} else {if (vBottom<=maxBottom){vBottom} else {vBottom=maxBottom;vTop=nTop;} };
+  if (bottomLinkToggle == "1") {if (((vBottom-oBottom)/oBottom)<= -1){qualityChange = -1 ; opsChange = ((vTop-oTop)/oTop); } else { if (((vBottom-oBottom)/oBottom) >= 1) {qualityChange = 1 ; opsChange = ((vTop-oTop)/oTop); } else {qualityChange = ((vBottom-oBottom)/oBottom)}}};
   if (leftLinkToggle == "0") {vLeft = nLeft} else {if (vLeft<=maxLeft){vLeft} else {vLeft=maxLeft;vTop=nTop} };
-  if (rightLinkToggle == "0") {vRight = nRight} else {if (vRight<=maxRight){vRight} else {vRight=maxRight;vTop=nTop} };
-} else if (linkedCounter > 1 && targetLockToggle == "1" & topLinkToggle !="0") {
+  if (leftLinkToggle == "1"){if (((oLeft-vLeft)/oLeft)<= -1){orgChange = -1; opsChange = ((vTop-oTop)/oTop);} else { if (((oLeft-vLeft)/oLeft)>= 1) {orgChange = 1; opsChange = ((vTop-oTop)/oTop);} else {orgChange = ((oLeft-vLeft)/oLeft)}};}
+  if (rightLinkToggle == "0") {vRight = nRight} else {if (vRight<=maxRight){vRight} else {vRight=maxRight;vTop=nTop}};
+  if (rightLinkToggle == "1") {if (((vRight-oRight)/oRight)<= -1){quantityChange = -1; opsChange = ((vTop-oTop)/oTop);} else { if (((vRight-oRight)/oRight)>= 1) {quantityChange = 1; opsChange = ((vTop-oTop)/oTop);} else {quantityChange = ((vRight-oRight)/oRight)}};}
+}
+
+else if (linkedCounter > 1 && targetLockToggle == "1" & topLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is LOCKED)
   if (linkedCounter =="2") {
     //with 2 axes linked:
@@ -1113,6 +1176,8 @@ if (vTop <= maxTop && vTop >= minTop && vBottom <= maxBottom && vBottom >= minBo
   
   updateSliders();
   updateRect(0);
+  updateChange();
+  updateChangeColor();
 
 }
 
@@ -1126,6 +1191,8 @@ function lock1(){
   document.getElementById("sLeft").disabled = true;
   vTop = areaMetric/(vBottom*(1/nLeft)*nRight);
 
+  if (((vTop-oTop)/oTop)<= -1){opsChange = -1; qualityChange = nBottom} else { if (((vTop-oTop)/oTop)>= 1) {opsChange = 1; qualityChange = nBottom} else {opsChange = ((vTop-oTop)/oTop)}};
+
 }
 
 function lock2(){
@@ -1134,6 +1201,8 @@ function lock2(){
   document.getElementById("sTop").disabled = true;
   vLeft = 1/(areaMetric/(nTop*vBottom*nRight));
 
+  if (((oLeft-vLeft)/oLeft)<= -1){orgChange = -1; qualityChange = nBottom} else { if (((oLeft-vLeft)/oLeft)>= 1) {orgChange = 1; qualityChange = nBottom} else {orgChange = ((oLeft-vLeft)/oLeft)}};
+
 }
 
 function lock3(){
@@ -1141,6 +1210,8 @@ function lock3(){
   document.getElementById("sLeft").disabled = true;
   document.getElementById("sTop").disabled = true;
   vRight = areaMetric/(nTop*vBottom*(1/nLeft));
+
+  if (((vRight-oRight)/oRight)<= -1){quantityChange = -1; qualityChange = nBottom} else { if (((vRight-oRight)/oRight)>= 1) {quantityChange = 1; qualityChange = nBottom;} else {quantityChange = ((vRight-oRight)/oRight)}};
 
 }
 
@@ -1152,6 +1223,15 @@ function lock4(){
   vLeft = 1/(areaMetric/(nTop*vBottom*nRight));
   vRight = nRight;
   document.getElementById("sRight").disabled = true;
+  opsChange = ((nTop-oTop)/oTop);
+  orgChange = ((oLeft-nLeft)/oLeft);
+
+  if ( opsChange >= 1 || opsChange <= -1 || orgChange >= 1 || orgChange <= -1 ){
+    qualityChange = nBottom;
+    opsChange = ((nTop-oTop)/oTop);
+    orgChange = ((oLeft-nLeft)/oLeft);
+
+  }
 
 }
 
@@ -1161,6 +1241,15 @@ function lock5(){
   vRight = areaMetric/(nTop*vBottom*(1/nLeft));
   vLeft = nLeft;
   document.getElementById("sLeft").disabled = true;
+  opsChange = ((nTop-oTop)/oTop);
+  quantityChange = ((nRight-oRight)/oRight);
+
+  if ( opsChange >= 1 || opsChange <= -1 || quantityChange >= 1 || quantityChange <= -1 ){
+    qualityChange = nBottom;
+    opsChange = ((nTop-oTop)/oTop);
+    quantityChange = ((oRight-nRight)/oRight);
+
+  }
 
 }
 
@@ -1172,6 +1261,10 @@ function lock6(){
   document.getElementById("sTop").disabled = true;
 
 }
+
+// Quality percentage change from original amount
+
+ if (((vBottom-oBottom)/oBottom)<-1){qualityChange = -1} else { if (((vBottom-oBottom)/oBottom)>1) {qualityChange = 1} else {qualityChange = ((vBottom-oBottom)/oBottom)}};
 
 // highlight the top edge
 
@@ -1199,8 +1292,11 @@ vRight = (nRight + nRight*(quantity_quality_Ratio*((vBottom-nBottom)/nBottom)))
 if (linkedCounter > 0 && targetLockToggle == "0" && bottomLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is UNLOCKED)
   if (topLinkToggle == "0") {vTop = nTop} else {vTop};
+  if (topLinkToggle == "1") {if (((vTop-oTop)/oTop)<= -1){opsChange = -1; qualityChange = nBottom} else { if (((vTop-oTop)/oTop)>= 1) {opsChange = 1; qualityChange = nBottom} else {opsChange = ((vTop-oTop)/oTop)}};};
   if (leftLinkToggle == "0") {vLeft = nLeft} else {vLeft};
+  if (leftLinkToggle == "1"){if (((oLeft-vLeft)/oLeft)<= -1){orgChange = -1; qualityChange = nBottom} else { if (((oLeft-vLeft)/oLeft)>= 1) {orgChange = 1; qualityChange = nBottom} else {orgChange = ((oLeft-vLeft)/oLeft)}};}
   if (rightLinkToggle == "0") {vRight = nRight} else {vRight};
+  if (rightLinkToggle == "1") {if (((vRight-oRight)/oRight)<= -1){quantityChange = -1; qualityChange = nBottom} else { if (((vRight-oRight)/oRight)>= 1) {quantityChange = 1; qualityChange = nBottom;} else {quantityChange = ((vRight-oRight)/oRight)}};}
 } else if (linkedCounter > 1 && targetLockToggle == "1" && bottomLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is LOCKED)
   if (linkedCounter =="2") {
@@ -1232,7 +1328,9 @@ if (vTop <= maxTop && vTop >= minTop && vBottom <= maxBottom && vBottom >= minBo
 }
   
   updateSliders();
+  updateChange();
   updateRect(0);
+  updateChangeColor();
 
 }
 
@@ -1246,6 +1344,8 @@ function lock1(){
   document.getElementById("sBottom").disabled = true;
   vTop = nTop + nTop*((vLeft-nLeft)/nLeft);
 
+  if (((vTop-oTop)/oTop)<= -1){opsChange = -1; orgChange = ((oLeft-nLeft)/oLeft);} else { if (((vTop-oTop)/oTop)>=1) {opsChange = 1; orgChange = ((oLeft-nLeft)/oLeft)} else {opsChange = ((vTop-oTop)/oTop)}};
+
 }
 
 function lock2(){
@@ -1253,6 +1353,8 @@ function lock2(){
   document.getElementById("sRight").disabled = true;
   document.getElementById("sTop").disabled = true;
   vBottom = nBottom + nBottom*((vLeft-nLeft)/nLeft);
+
+  if (((vBottom-oBottom)/oBottom)<= -1){qualityChange = -1; orgChange = ((oLeft-nLeft)/oLeft);} else { if (((vBottom-oBottom)/oBottom)>= 1) {qualityChange = 1; orgChange = ((oLeft-nLeft)/oLeft)} else {qualityChange = ((vBottom-oBottom)/oBottom)}};
 
 }
 
@@ -1262,6 +1364,8 @@ function lock3(){
   document.getElementById("sTop").disabled = true;
   vRight = nRight + nRight*((vLeft-nLeft)/nLeft);
 
+  if (((vRight-oRight)/oRight)<= -1){quantityChange = -1; orgChange = ((oLeft-nLeft)/oLeft)} else { if (((vRight-oRight)/oRight)>= 1) {quantityChange = 1; orgChange = ((oLeft-nLeft)/oLeft)} else {quantityChange = ((vRight-oRight)/oRight)}};
+
 }
 
 //Functionality that disables the 1 unlinked variable when the target is locked
@@ -1269,29 +1373,40 @@ function lock3(){
 function lock4(){
 
   vTop = nTop + nTop*((vLeft-nLeft)/nLeft);
+  if (((vTop-oTop)/oTop)<-1){opsChange = -1} else { if (((vTop-oTop)/oTop)>1) {opsChange = 1} else {opsChange = ((vTop-oTop)/oTop)}};
   vBottom = nBottom + nBottom*((vLeft-nLeft)/nLeft);
+  if (((vBottom-oBottom)/oBottom)<-1){qualityChange = -1} else { if (((vBottom-oBottom)/oBottom)>1) {qualityChange = 1} else {qualityChange = ((vBottom-oBottom)/oBottom)}};
   vRight = nRight;
-  document.getElementById("sRight").disabled = true;
+  // document.getElementById("sRight").disabled = true;
 
 }
 
 function lock5(){
 
   vTop = nTop + nTop*((vLeft-nLeft)/nLeft);
+  if (((vTop-oTop)/oTop)<-1){opsChange = -1} else { if (((vTop-oTop)/oTop)>1) {opsChange = 1} else {opsChange = ((vTop-oTop)/oTop)}};
   vRight = nRight + nRight*((vLeft-nLeft)/nLeft);
+  if (((vRight-oRight)/oRight)<-1){quantityChange = -1} else { if (((vRight-oRight)/oRight)>1) {quantityChange = 1} else {quantityChange = ((vRight-oRight)/oRight)}};
   vBottom = nBottom;
-  document.getElementById("sBottom").disabled = true;
+  // document.getElementById("sBottom").disabled = true;
 
 }
 
 function lock6(){
 
   vBottom = nBottom + nBottom*((vLeft-nLeft)/nLeft);
+  if (((vBottom-oBottom)/oBottom)<-1){qualityChange = -1} else { if (((vBottom-oBottom)/oBottom)>1) {qualityChange = 1} else {qualityChange = ((vBottom-oBottom)/oBottom)}};
   vRight = nRight + nRight*((vLeft-nLeft)/nLeft);
+  if (((vRight-oRight)/oRight)<-1){quantityChange = -1} else { if (((vRight-oRight)/oRight)>1) {quantityChange = 1} else {quantityChange = ((vRight-oRight)/oRight)}};
   vTop = nTop;
-  document.getElementById("sTop").disabled = true;
+  // document.getElementById("sTop").disabled = true;
 
 }
+
+// Organization percentage change from original amount
+
+if (((oLeft-vLeft)/oLeft)<-1){orgChange=-1} 
+  else {orgChange = ((oLeft-vLeft)/oLeft)};
 
 
 // highlight the top edge
@@ -1321,15 +1436,18 @@ vRight = nRight - (nRight - nRight*(org_quantity_Ratio*((vLeft-nLeft)/nLeft)))*(
 if (linkedCounter > 1 && targetLockToggle == "1" && leftLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is LOCKED)
   if (topLinkToggle == "0") {vTop = nTop} else {lock1()};
+  if (topLinkToggle == "1") {if (((vTop-oTop)/oTop)<= -1){opsChange = -1; orgChange = ((oLeft-nLeft)/oLeft);} else { if (((vTop-oTop)/oTop)>=1) {opsChange = 1; orgChange = ((oLeft-nLeft)/oLeft)} else {opsChange = ((vTop-oTop)/oTop)}};};
   if (bottomLinkToggle == "0") {vBottom = nBottom} else {lock2()};
+  if (bottomLinkToggle == "1") {if (((vBottom-oBottom)/oBottom)<= -1){qualityChange = -1; orgChange = ((oLeft-nLeft)/oLeft);} else { if (((vBottom-oBottom)/oBottom)>= 1) {qualityChange = 1; orgChange = ((oLeft-nLeft)/oLeft)} else {qualityChange = ((vBottom-oBottom)/oBottom)}};};
   if (rightLinkToggle == "0") {vRight = nRight} else {lock3()};
+  if (rightLinkToggle == "1") {if (((vRight-oRight)/oRight)<= -1){quantityChange = -1; orgChange = ((oLeft-nLeft)/oLeft)} else { if (((vRight-oRight)/oRight)>= 1) {quantityChange = 1; orgChange = ((oLeft-nLeft)/oLeft)} else {quantityChange = ((vRight-oRight)/oRight)}};}
 } else if (linkedCounter > 1 && targetLockToggle == "0" && leftLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is UNLOCKED)
   if (linkedCounter =="2") {
     //with 2 axes linked:
-    if (topLinkToggle == "0") {vTop = nTop} else {vTop};
-    if (bottomLinkToggle == "0") {vBottom = nBottom} else {vBottom};
-    if (rightLinkToggle == "0") {vRight = nRight} else {vRight};
+    if (topLinkToggle == "0") {vTop = nTop;} else {vTop; if (((vTop-oTop)/oTop)<= -1){opsChange = -1; orgChange = ((oLeft-nLeft)/oLeft);} else { if (((vTop-oTop)/oTop)>=1) {opsChange = 1; orgChange = ((nLeft-vLeft)/oLeft);} else {opsChange = ((vTop-oTop)/oTop)}}; };
+    if (bottomLinkToggle == "0") {vBottom = nBottom} else {vBottom; if (((vBottom-oBottom)/oBottom)<= -1){qualityChange = -1; orgChange = ((oLeft-nLeft)/oLeft);} else { if (((vBottom-oBottom)/oBottom)>= 1) {qualityChange = 1; orgChange = ((oLeft-nLeft)/oLeft)} else {qualityChange = ((vBottom-oBottom)/oBottom)}};};
+    if (rightLinkToggle == "0") {vRight = nRight} else {vRight; if (((vRight-oRight)/oRight)<= -1){quantityChange = -1; orgChange = ((oLeft-nLeft)/oLeft)} else { if (((vRight-oRight)/oRight)>= 1) {quantityChange = 1; orgChange = ((oLeft-nLeft)/oLeft)} else {quantityChange = ((vRight-oRight)/oRight)}};};
   } else if (linkedCounter =="3") {
     //with 3 axes linked:
     if (topLinkToggle != "0" && bottomLinkToggle != "0") {lock4()};
@@ -1354,7 +1472,9 @@ if (vTop <= maxTop && vTop >= minTop && vBottom <= maxBottom && vBottom >= minBo
 }
   
   updateSliders();
+  updateChange();
   updateRect(0);
+  updateChangeColor();
 
 };
 
@@ -1368,6 +1488,8 @@ function lock1(){
   document.getElementById("sBottom").disabled = true;
   vTop = areaMetric/(nBottom*(1/nLeft)*vRight);
 
+  if (((vTop-oTop)/oTop)<= -1){opsChange = -1; quantityChange = ((nRight-oRight)/oRight);} else { if (((vTop-oTop)/oTop)>= 1) {opsChange = 1; quantityChange = ((nRight-oRight)/oRight);} else {opsChange = ((vTop-oTop)/oTop)}};
+
 }
 
 function lock2(){
@@ -1376,6 +1498,8 @@ function lock2(){
   document.getElementById("sBottom").disabled = true;
   vLeft = areaMetric/(nTop*nBottom*vRight);
 
+  if (((oLeft-vLeft)/oLeft)<= -1){orgChange = -1; quantityChange = ((nRight-oRight)/oRight);} else { if (((oLeft-vLeft)/oLeft)>= 1) {orgChange = 1; quantityChange = ((nRight-oRight)/oRight);} else {orgChange = ((oLeft-vLeft)/oLeft)}};
+
 }
 
 function lock3(){
@@ -1383,6 +1507,8 @@ function lock3(){
   document.getElementById("sTop").disabled = true;
   document.getElementById("sLeft").disabled = true;
   vBottom = areaMetric/(nTop*(1/nLeft)*vRight);
+
+  if (((vBottom-oBottom)/oBottom)<= -1){qualityChange = -1; quantityChange = ((nRight-oRight)/oRight);} else { if (((vBottom-oBottom)/oBottom)>= 1) {qualityChange = 1; quantityChange = ((nRight-oRight)/oRight);} else {qualityChange = ((vBottom-oBottom)/oBottom)}};
 
 }
 
@@ -1418,6 +1544,11 @@ function lock6(){
 
 }
 
+// Quantity percentage change from original amount
+
+if (((vRight-oRight)/oRight)<-1){quantityChange=-1} 
+  else {quantityChange = ((vRight-oRight)/oRight)};
+
 
 // highlight the top edge
 
@@ -1431,6 +1562,7 @@ function lock6(){
     if (bottomLinkToggle == "1") {holder.select('#bottomEdge').attr("style", "stroke:rgb(128,128,128); stroke-width:3px")}
     if (leftLinkToggle == "1") {holder.select('#leftEdge').attr("style", "stroke:rgb(128,128,128); stroke-width:3px")}
   };
+
 
 //prep variables
 
@@ -1446,8 +1578,12 @@ vBottom = nBottom + nBottom*(quantity_quality_Ratio*((vRight-nRight)/nRight))
 if (linkedCounter > 1 && targetLockToggle == "0" && rightLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is UNLOCKED)
   if (topLinkToggle == "0") {vTop = nTop} else {vTop};
+  if (topLinkToggle == "1") {if (((vTop-oTop)/oTop)<= -1){opsChange = -1; quantityChange = ((nRight-oRight)/oRight);} else { if (((vTop-oTop)/oTop)>= 1) {opsChange = 1; quantityChange = ((nRight-oRight)/oRight);} else {opsChange = ((vTop-oTop)/oTop)}};};
   if (leftLinkToggle == "0") {vLeft = nLeft} else {vLeft};
+  if (leftLinkToggle == "1"){if (((oLeft-vLeft)/oLeft)<= -1){orgChange = -1; quantityChange = ((nRight-oRight)/oRight);} else { if (((oLeft-vLeft)/oLeft)>= 1) {orgChange = 1; quantityChange = ((nRight-oRight)/oRight);} else {orgChange = ((oLeft-vLeft)/oLeft)}};}
   if (bottomLinkToggle == "0") {vBottom = nBottom} else {vBottom};
+  if (bottomLinkToggle == "1") {if (((vBottom-oBottom)/oBottom)<= -1){qualityChange = -1; quantityChange = ((nRight-oRight)/oRight);} else { if (((vBottom-oBottom)/oBottom)>= 1) {qualityChange = 1; quantityChange = ((nRight-oRight)/oRight);} else {qualityChange = ((vBottom-oBottom)/oBottom)}};};
+
 } else if (linkedCounter > 1 && targetLockToggle == "1" && rightLinkToggle !="0") {
   // calculate newValues for inactive variables (if goal is LOCKED)
   if (linkedCounter =="2") {
@@ -1479,8 +1615,12 @@ if (vTop <= maxTop && vTop >= minTop && vBottom <= maxBottom && vBottom >= minBo
 }
   
   updateSliders();
+  updateChange();
   updateRect(0);
+  updateChangeColor();
+
 }
+
 
 function updateRect(time) { 
 
@@ -1795,6 +1935,22 @@ function updateSliders() {
 
 }
 
+function updateChange(){
+// Operations
+  d3.select("#opsChange").text(d3.format("0.0%")(opsChange));
+
+// Quality
+  d3.select("#qualityChange").text(d3.format("0.0%")(qualityChange));
+
+//Organization
+  d3.select("#orgChange").text(d3.format("0.0%")(orgChange));
+
+//Quantity
+  d3.select("#quantityChange").text(d3.format("0.0%")(quantityChange));
+
+}
+
+
 function editTarget() {
 
   fTargetInput.innerHTML = fTargetValue.innerHTML;
@@ -1813,6 +1969,35 @@ function updateMetrics() {
   areaMetric = xMetric*yMetric;
 
 }
+
+var colorScale = d3.scaleLinear()
+    .domain([-.75, 0, .75])
+    .range(["#f72c2c", "black", "#22a522"]);
+
+function updateChangeColor(){
+
+  d3.select("#opsChange")
+  .style("color",function(d){
+    return colorScale(opsChange);
+  });
+
+    d3.select("#orgChange")
+  .style("color",function(d){
+    return colorScale(orgChange);
+  });
+
+    d3.select("#qualityChange")
+  .style("color",function(d){
+    return colorScale(qualityChange);
+  });
+
+    d3.select("#quantityChange")
+  .style("color",function(d){
+    return colorScale(quantityChange);
+  });
+
+}
+
 
 
 

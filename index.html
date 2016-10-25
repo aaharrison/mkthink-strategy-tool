@@ -76,7 +76,7 @@
       </span>
       <label for="sRight" class="sectionLine" style="width:176px;"><span id="quantityName"> assignable office SF </span> = </label>
       <span id="sRight-value" class="sectionValue">…</span>
-      <input type="range" class="variable" id="sRight" step="1" min = minRight max = maxRight>
+      <input type="range" class="variable" id="sRight" step="100" min = minRight max = maxRight>
       <span class="upHolder">
         <img id="rightUpMax" src="http://mkthinkstrategy.info/wggtest/admin/arrow-right-blk.png" onClick="updateSliderMax(id);">
       </span>
@@ -142,13 +142,32 @@
 
 <!-- Outputs section to be completedted -->
 
-<div class="sectionHolder" style="width:338px;">
-  <div class="sectionHead" style="paddingadding-left:15px;">Outputs</div>
-    <div id="outputsHolder">
-      <div id="outputText">
-        <span>This section will display statisitics of the differences of the initial starting variable values and cost impacts based on changes</span>
-      </div>
-    </div>
+<div class="sectionHolder" style="width:330px;height:221px;margin-left: 20px;"> 
+  <div class="sectionHead"><span>Statistics</span></div>
+
+  &nbsp;Percentage change from orginal values
+
+  <br><br>
+
+  <p class="percentageChange">
+    <span style="margin-left: 30px;"> Operations Percentage Change = </span>
+    <span id="opsChange" class="sectionValue" style="float:right">…</span>
+  </p>
+
+  <p class="percentageChange">
+    <span style="margin-left: 30px;"> Quality Percentage Change = </span>
+    <span id="qualityChange" class="sectionValue" style="float:right">…</span> 
+  </p>
+
+  <p class="percentageChange">
+    <span style="margin-left: 30px;"> Quantity Percentage Change = </span>
+    <span id="quantityChange" class="sectionValue" style="float:right">…</span>
+  </p>
+
+  <p class="percentageChange">
+    <span style="margin-left: 30px;"> Organization Percentage Change = </span>
+    <span id="orgChange" class="sectionValue" style="float:right">…</span>
+  </p>
 </div>
 
 

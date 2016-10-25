@@ -92,6 +92,7 @@ span {
 .numInput1{
   width: 50px;
   outline: none;
+  text-align: center;
 }
 
 .input1{
@@ -198,6 +199,17 @@ span {
   background-color:#E8F8F5;
 }
 
+.percentageChange{
+  height: 24px;
+  width: 100%;
+  margin-bottom: 15px;
+  border-radius: 2px 30px 30px 2px;
+  border-left-style:solid;
+  border-left-width:3px;
+  border-left-color:#1B4F72;
+  background-color:#EBF5FB;
+}
+
 .kpiField{
   width: 350px;
   text-align: center;
@@ -223,7 +235,7 @@ span {
 }
 
 #outputText{
-  margin-top:75px;
+/*  margin-top:75px;*/
   color: #00394E;
   font-size: 16px;
   text-align: center;
